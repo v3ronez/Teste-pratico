@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Database\Repository\User\UserRepository;
+use App\Database\Repository\Vehicle\VehicleRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -10,10 +11,12 @@ use Illuminate\Support\Facades\Log;
 class VehicleController extends Controller
 {
     private $userRepository;
+    private $vehicleRepository;
 
     public function __construct()
     {
         $this->userRepository = new UserRepository();
+        $this->vehicleRepository = new VehicleRepository();
     }
 
     public function index()
@@ -21,7 +24,7 @@ class VehicleController extends Controller
         try {
         } catch (Exception $e) {
             Log::error("Expection error", [$e->getMessage()]);
-            return false;
+            return;
         }
     }
 
@@ -31,25 +34,29 @@ class VehicleController extends Controller
         try {
             $user = $this->userRepository->findById($id);
             if (!$user) {
-                return back();
+                return redirect()->route('home');
             }
             return response()->view('vehicle.create', compact('user'));
         } catch (Exception $e) {
             Log::error("Expection error", [$e->getMessage()]);
-            return false;
+            return response('', 500);
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(Request $request, $id)
     {
         try {
+            $user = $this->userRepository->findById($id);
+            if (!$user) {
+                return redirect()->route('home');
+            }
+            $fields = $request->only(['plate', 'brand', 'year', 'model', 'renavam']);
+            $created = $this->vehicleRepository->createVehicle($fields, $user->id);
+            if (!$created) {
+                return redirect()->back()->with('errors', ['plate' => 'Modelo de placa inválido']);
+            }
+            return view('user.show', ['vehicle_create' => 'true']);
         } catch (Exception $e) {
             Log::error("Expection error", [$e->getMessage()]);
             return false;

@@ -48,4 +48,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.delete');
 
     Route::get('/vehicle/{user_id}', [VehicleController::class, 'create'])->name('vehicle.create');
+    Route::post('/vehicle/{user_id}', [VehicleController::class, 'store'])->name('vehicle.store');
 });

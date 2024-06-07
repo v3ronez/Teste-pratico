@@ -58,7 +58,7 @@ class UserController extends Controller
     public function show(Request $request, $id)
     {
         try {
-            $user = $this->userRepository->findById($id);
+            $user = $this->userRepository->withRelations($id, ['vehicles']);
             if (!$user) {
                 return response('', 404);
             }

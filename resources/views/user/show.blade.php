@@ -1,6 +1,5 @@
 @php use App\User; @endphp
 @extends('layouts.app')
-@dd($user)
 @section('content')
     <div>
         <div class="w-100 h-100 p-4">
@@ -37,7 +36,7 @@
                                                 </div>
                                                 <div class="col-6 mb-3">
                                                     <h6>Qtd carros</h6>
-                                                    <p class="text-muted">1</p>
+                                                    <p class="text-muted">{{count($user->vehicles)}}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -53,33 +52,30 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Placa</th>
+                        <th scope="col">Renavam</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Ano</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>The Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                    @forelse ($user->vehicles as $vehicle)
+                        <tr>
+                            <td></td>
+                            <td>{{ $vehicle->plate }}</td>
+                            <td>{{ $vehicle->renavam}}</td>
+                            <td>{{ $vehicle->model }}</td>
+                            <td>{{ $vehicle->brand }}</td>
+                            <td>{{ $vehicle->year }}</td>
+                        </tr>
+                    @empty
+                        <td colspan="6">Não veículo vinculado ainda.</td>
+                    @endforelse
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
 @endsection

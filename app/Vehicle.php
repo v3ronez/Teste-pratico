@@ -22,7 +22,8 @@ class Vehicle extends Authenticatable
 
     public function isValidaPlate(string $plate): bool
     {
-        return false;
+        $pattern = '/^[A-Za-z]{3}[0-9]{4}$/';
+        return preg_match($pattern, $plate);
     }
 
     public function isValidaYear(string $plate): bool
