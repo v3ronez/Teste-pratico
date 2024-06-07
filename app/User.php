@@ -3,12 +3,15 @@
 namespace App;
 
 use App\Notifications\MyResetPasswordNotification;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use softDeletes;
+
     const ROLE_USER = 1;
     const ROLE_ADMIN = 2;
 
@@ -17,22 +20,31 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password', 'role','phone', 'cpf'
-    ];
+    protected $fillable
+        = [
+            'name',
+            'email',
+            'password',
+            'role',
+            'phone',
+            'cpf'
+        ];
 
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden
+        = [
+            'password',
+            'remember_token',
+        ];
 
     /**
      * Enviando notificação de recuperação de senha.
-     * @param string $token
+     *
+     * @param  string  $token
      */
     public function sendPasswordResetNotification($token)
     {

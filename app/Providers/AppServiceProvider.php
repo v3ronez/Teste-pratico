@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Faker\Generator as FakerGenerator;
 use Faker\Factory as FakerFactory;
+use Faker\Generator as FakerGenerator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \Validator::extend('cpf',function($attribute,$value,$parameters,$validator){
+        Paginator::useBootstrapThree();
+        \Validator::extend('cpf', function ($attribute, $value, $parameters, $validator) {
             return (new Cpf())->isValid($value);
         });
     }
@@ -34,6 +36,5 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(FakerGenerator::class, function () {
             return FakerFactory::create('pt_BR');
         });
-
     }
 }

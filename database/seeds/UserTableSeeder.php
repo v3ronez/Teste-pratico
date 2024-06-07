@@ -23,9 +23,8 @@ class UserTableSeeder extends Seeder
             'email' => 'user@teste.com.br',
             'phone' => '(62) 00000-0000',
             'cpf'   => '21429528109'
-         ]);
+        ]);
 
-        factory(\App\User::class, 50)->states('user')->create();
-
+        factory(\App\User::class, 40)->states('user')->create();
     }
 }
