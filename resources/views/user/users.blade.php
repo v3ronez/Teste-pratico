@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    {{--    @dd($users)--}}
-    <div class="w-100 h-100 p-5">
+    <div class="w-100 h-100 p-4">
+        <h1>Usuários</h1>
         <table class="table">
             <thead>
             <tr>
@@ -21,7 +21,20 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->cpf }}</td>
                     <td>{{ $user->phone }}</td>
-                    <td>Action</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Ações
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu"
+                                aria-labelledby="dropdownMenu1">
+                                <li><a href="#">Ver Perfil</a></li>
+                                <li><a href="#">Ver Carros</a></li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
             @endforeach
             </tbody>
