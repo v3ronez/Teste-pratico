@@ -19,7 +19,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body p-4">
-                                            <h6>Information</h6>
+                                            <h6>Informações básicas</h6>
                                             <hr class="mt-0 mb-4">
                                             <div class="row pt-1">
                                                 <div class="col-6 mb-3">
@@ -32,7 +32,7 @@
                                                 </div>
                                                 <div class="col-6 mb-3">
                                                     <h6>documento</h6>
-                                                    <p class="text-muted">{{$user->cpf}}</p>
+                                                    <p class="text-muted">{{mask_cpf($user->cpf)}}</p>
                                                 </div>
                                                 <div class="col-6 mb-3">
                                                     <h6>Qtd carros</h6>
@@ -57,10 +57,12 @@
                         <th scope="col">Modelo</th>
                         <th scope="col">Marca</th>
                         <th scope="col">Ano</th>
+                        <th scope="col">Ações</th>
                     </tr>
                     </thead>
                     <tbody>
                     @forelse ($user->vehicles as $vehicle)
+                        @dump($vehicle)
                         <tr>
                             <td></td>
                             <td>{{ $vehicle->plate }}</td>
@@ -68,6 +70,21 @@
                             <td>{{ $vehicle->model }}</td>
                             <td>{{ $vehicle->brand }}</td>
                             <td>{{ $vehicle->year }}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Ações
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu p-2"
+                                        aria-labelledby="dropdownMenu1">
+                                        <li class="mb-2"><a
+                                                    href="{{route('admin.vehicle.edit', ['id'=> $vehicle->id])}}">Editar</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                     @empty
                         <td colspan="6">Não veículo vinculado ainda.</td>

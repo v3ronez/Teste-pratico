@@ -79,16 +79,15 @@ class VehicleController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+
+    public function edit(Request $request, $id)
     {
         try {
+            $vehicle = $this->vehicleRepository->withRelations($id, ['user']);
+            if (!$vehicle) {
+                return redirect()->route('home');
+            }
+            return view('vehicle.edit', compact('vehicle'));
         } catch (Exception $e) {
             Log::error("Expection error", [$e->getMessage()]);
             return false;

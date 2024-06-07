@@ -47,6 +47,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.delete');
 
-    Route::get('/vehicle/{user_id}', [VehicleController::class, 'create'])->name('vehicle.create');
+    Route::get('/vehicle/new/{user_id}', [VehicleController::class, 'create'])->name('vehicle.create');
     Route::post('/vehicle/{user_id}', [VehicleController::class, 'store'])->name('vehicle.store');
+    Route::get('/vehicle/{id}', [VehicleController::class, 'edit'])->name('vehicle.edit');
 });
