@@ -2,7 +2,7 @@
 @section('content')
     <section class="w-100 h-100 p-5 bg-white">
         <h2>Editar veículo: ID: {{$vehicle->id}} - Dono: {{$vehicle->user->name}}</h2>
-        <form method="POST" action="">
+        <form method="POST" action="{{route('admin.vehicle.update', ['id' => $vehicle->id])}}">
             @csrf
             @method('PUT')
             <div class="row">
@@ -45,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Cadastrar!</button>
+            <button type="submit" class="btn btn-primary">Editar!</button>
         </form>
     </section>
 @endsection

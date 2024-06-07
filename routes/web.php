@@ -50,4 +50,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/vehicle/new/{user_id}', [VehicleController::class, 'create'])->name('vehicle.create');
     Route::post('/vehicle/{user_id}', [VehicleController::class, 'store'])->name('vehicle.store');
     Route::get('/vehicle/{id}', [VehicleController::class, 'edit'])->name('vehicle.edit');
+    Route::put('/vehicle/{id}', [VehicleController::class, 'update'])->name('vehicle.update');
 });

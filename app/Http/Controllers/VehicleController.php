@@ -94,17 +94,23 @@ class VehicleController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         try {
+            $fields = $request->only(['plate', 'brand', 'year', 'model', 'renavam']);
+            $vehicle = $this->vehicleRepository->withRelations($id, ['user']);
+            if (!$vehicle) {
+                return redirect()->route('home');
+            }
+            $plateValid = $vehicle->isValidaPlate($fields['plate']);
+            if (!$plateValid) {
+                return back();
+            }
+            $updated = $this->vehicleRepository->updateById($id, $fields);
+            if (!$updated) {
+                return back();
+            }
+            return redirect()->route('admin.user.show', ['id' => $vehicle->user->id]);
         } catch (Exception $e) {
             Log::error("Expection error", [$e->getMessage()]);
             return false;

@@ -26,11 +26,6 @@ class Vehicle extends Authenticatable
         return preg_match($pattern, $plate);
     }
 
-    public function isValidaYear(string $plate): bool
-    {
-        return false;
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);

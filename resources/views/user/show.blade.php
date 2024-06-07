@@ -62,7 +62,6 @@
                     </thead>
                     <tbody>
                     @forelse ($user->vehicles as $vehicle)
-                        @dump($vehicle)
                         <tr>
                             <td></td>
                             <td>{{ $vehicle->plate }}</td>
