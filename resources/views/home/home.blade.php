@@ -11,15 +11,5 @@
                     <a href="{{route('admin.user.index')}}" class="btn btn-primary">Ver</a>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Veículos</h5>
-                    <p class="card-text">
-                        Acompanhe os veículos cadastrados.
-                    </p>
-                    <button type="button" class="btn btn-primary">Ver</button>
-                </div>
-            </div>
         </div>
-    </div>
 @endsection

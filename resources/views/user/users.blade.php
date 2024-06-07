@@ -28,10 +28,12 @@
                                 Ações
                                 <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu"
+                            <ul class="dropdown-menu p-2"
                                 aria-labelledby="dropdownMenu1">
-                                <li><a href="#">Ver Perfil</a></li>
-                                <li><a href="#">Ver Carros</a></li>
+                                <li class="mb-2"><a href="{{route('admin.user.show', ['id'=> $user->id])}}">Ver
+                                        Perfil</a></li>
+                                <li><a href="{{route('admin.vehicle.create', ['user_id' => $user->id])}}">Cadastrar
+                                        veículo</a></li>
                             </ul>
                         </div>
                     </td>

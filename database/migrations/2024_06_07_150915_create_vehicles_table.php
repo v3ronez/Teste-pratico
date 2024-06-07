@@ -20,14 +20,9 @@ class CreateVehiclesTable extends Migration
             $table->string("model");
             $table->string("brand");
             $table->string("year", 4);
-            $table->integer("owner_id");
+            $table->unsignedBigInteger('user_id');
 
-            $table
-                ->foreign("owner_id")
-                ->references("id")
-                ->on("users")
-                ->onDelete("cascade");
-
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

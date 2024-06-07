@@ -9,20 +9,16 @@ class Vehicle extends Authenticatable
 {
     use SoftDeletes;
 
-    protected $primaryKey = "id";
-    protected $casts = [
-        "id" => "string",
-    ];
-    public $incrementing = false;
     protected $table = "vehicles";
-    protected $fillable = [
-        "plate",
-        "renavam",
-        "model",
-        "brand",
-        "year",
-        "owner_id",
-    ];
+    protected $fillable
+        = [
+            "plate",
+            "renavam",
+            "model",
+            "brand",
+            "year",
+            "user_id",
+        ];
 
     public function isValidaPlate(string $plate): bool
     {
@@ -32,5 +28,10 @@ class Vehicle extends Authenticatable
     public function isValidaYear(string $plate): bool
     {
         return false;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -23,8 +23,8 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $users = User::paginate();
-            return view('user.users', compact('users'));
+            $users = $this->userRepository->getPaginateBootstrap();
+            return response()->view('user.users', compact('users'));
         } catch (Exception $e) {
             Log::error("Exception error", [$e->getMessage()]);
             return response('unexpected error', 500);
@@ -62,7 +62,7 @@ class UserController extends Controller
             if (!$user) {
                 return response('', 404);
             }
-            return response()->json($user);
+            return response()->view('user.show', compact('user'));
         } catch (Exception $e) {
             Log::error("Exception error", [$e->getMessage()]);
             return response('unexpected error', 500);
