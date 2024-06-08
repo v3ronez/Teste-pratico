@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         try {
             $users = $this->userRepository->getPaginateBootstrap();
-            return response()->view('user.users', compact('users'));
+            return response()->view('user.index', compact('users'));
         } catch (Exception $e) {
             Log::error("Exception error", [$e->getMessage()]);
             return response('unexpected error', 500);
@@ -92,7 +92,7 @@ class UserController extends Controller
             if (!$deleted) {
                 return response('Error to delete', 400);
             }
-            return response('', 200);
+            return redirect()->route('admin.user.index');
         } catch (Exception $e) {
             Log::error("Exception error", [$e->getMessage()]);
             return response('unexpected error', 500);

@@ -4,6 +4,7 @@ namespace App\Database\Repository\Vehicle;
 
 use App\Database\Repository\BaseRepository;
 use App\Vehicle;
+use Illuminate\Support\Facades\Log;
 
 class VehicleRepository extends BaseRepository
 {
@@ -23,5 +24,15 @@ class VehicleRepository extends BaseRepository
         }
         $fields['user_id'] = $id;
         return $this->create($fields);
+    }
+
+    public function getPaginateBootstrapWithRelation()
+    {
+        try {
+            return $this->model->with(['user'])->paginate();
+        } catch (\Exception $e) {
+            Log::error("Error to delete on DB", [$e->getMessage()]);
+            return false;
+        }
     }
 }

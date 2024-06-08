@@ -16,7 +16,7 @@
                     <p class="card-text">
                         Acompanhe os veículos cadastrados no sistema.
                     </p>
-                    <a href="{{route('admin.user.index')}}"
+                    <a href="{{route('admin.vehicle.index')}}"
                        class="btn btn-primary">Ver</a>
                 </div>
             </div>

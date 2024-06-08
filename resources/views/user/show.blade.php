@@ -12,10 +12,19 @@
                                      style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                                     <img src="https://st3.depositphotos.com/1767687/16607/v/450/depositphotos_166074422-stock-illustration-default-avatar-profile-icon-grey.jpg"
                                          alt="Avatar" class="img-fluid my-5" style="width: 80px;"/>
-                                    <button type="button" class="btn btn-discovery btn-primary rounded-2"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <button type="button" class="btn btn-discovery btn-primary rounded-2">
                                         Editar perfil
                                     </button>
+                                    @if(Auth::user()->role == User::ROLE_ADMIN)
+                                        <form method="POST"
+                                              action="{{route('admin.user.delete', ['id' => $user->id])}}">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="btn btn-discovery btn-danger rounded-2 mt-3">
+                                                Deletar perfil
+                                            </button>
+                                        </form>
+                                    @endif
                                     <h5>{{$user->name}}</h5>
                                     <p></p>
                                     <i class="far fa-edit mb-5"></i>

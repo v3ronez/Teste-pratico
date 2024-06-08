@@ -77,4 +77,14 @@ class BaseRepository implements BaseRepositoryInterface
             return false;
         }
     }
+
+    public function getPaginateBootstrap()
+    {
+        try {
+            return $this->model->paginate();
+        } catch (Exception $e) {
+            Log::error("Error to delete on DB", [$e->getMessage()]);
+            return false;
+        }
+    }
 }

@@ -22,6 +22,8 @@ class VehicleController extends Controller
     public function index()
     {
         try {
+            $vehicles = $this->vehicleRepository->getPaginateBootstrapWithRelation(['user']);
+            return response()->view('vehicle.index', compact('vehicles'));
         } catch (Exception $e) {
             Log::error("Expection error", [$e->getMessage()]);
             return;
