@@ -6,7 +6,7 @@ use App\User;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class PermissionAdmin
+class Myself
 {
     /**
      * Handle an incoming request.
@@ -19,10 +19,9 @@ class PermissionAdmin
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::user()->role != User::ROLE_ADMIN) {
-            return redirect('/home');
+        if (Auth::user()->id == $request->route('id') || Auth::user()->role != User::ROLE_ADMIN) {
+            return $next($request);
         }
-
-        return $next($request);
+        return redirect('/home');
     }
 }
