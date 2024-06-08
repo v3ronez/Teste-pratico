@@ -105,7 +105,7 @@ class VehicleController extends Controller
             if (!$updated) {
                 return back();
             }
-            return redirect()->route('admin.user.show', ['id' => $vehicle->user->id]);
+            return redirect()->route('user.show', ['id' => $vehicle->user->id]);
         } catch (Exception $e) {
             Log::error("Expection error", [$e->getMessage()]);
             return false;

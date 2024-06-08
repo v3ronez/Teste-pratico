@@ -30,7 +30,7 @@
                             </button>
                             <ul class="dropdown-menu p-2"
                                 aria-labelledby="dropdownMenu1">
-                                <li class="mb-2"><a href="{{route('admin.user.show', ['id'=> $user->id])}}">Ver
+                                <li class="mb-2"><a href="{{route('user.show', ['id'=> $user->id])}}">Ver
                                         Perfil</a></li>
                                 <li><a href="{{route('admin.vehicle.create', ['user_id' => $user->id])}}">Cadastrar
                                         veículo</a></li>

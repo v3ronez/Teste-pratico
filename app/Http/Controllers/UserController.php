@@ -69,15 +69,25 @@ class UserController extends Controller
         }
     }
 
+    public function edit(Request $request, $id)
+    {
+        $user = $this->userRepository->findById($id);
+        if (!$user) {
+            return redirect()->route('home');
+        }
+        return view('user.edit', compact('user'));
+    }
+
     public function update(Request $request, $id)
     {
         try {
-            $fields = $request->only(['name', 'document', 'email', 'password']);
+            $fields = $request->only(['name', 'cpf', 'phone', 'email']);
+            $fields['cpf'] = clear_caracteres($fields['cpf']);
             $user = $this->userRepository->updateById($id, $fields);
             if (!$user) {
                 return response('Error to update user', 400);
             }
-            return response('', 200);
+            return redirect()->route('user.show', ['id' => $id]);
         } catch (Exception $e) {
             Log::error("Exception error", [$e->getMessage()]);
             return response('unexpected error', 500);

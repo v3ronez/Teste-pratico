@@ -13,7 +13,8 @@
                                     <img src="https://st3.depositphotos.com/1767687/16607/v/450/depositphotos_166074422-stock-illustration-default-avatar-profile-icon-grey.jpg"
                                          alt="Avatar" class="img-fluid my-5" style="width: 80px;"/>
                                     <button type="button" class="btn btn-discovery btn-primary rounded-2">
-                                        Editar perfil
+                                        <a href="{{route('user.edit', ['id' => $user->id])}}" class="text-white"> Editar
+                                            perfil</a>
                                     </button>
                                     @if(Auth::user()->role == User::ROLE_ADMIN)
                                         <form method="POST"
@@ -34,6 +35,10 @@
                                         <h6>Informações básicas</h6>
                                         <hr class="mt-0 mb-4">
                                         <div class="row pt-1">
+                                            <div class="col-6 mb-3">
+                                                <h6>Nome</h6>
+                                                <p class="text-muted">{{$user->name}}</p>
+                                            </div>
                                             <div class="col-6 mb-3">
                                                 <h6>Email</h6>
                                                 <p class="text-muted">{{$user->email}}</p>

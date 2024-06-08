@@ -22,7 +22,7 @@
                     <td>{{ $vehicle->brand }}</td>
                     <td>{{ $vehicle->year }}</td>
                     <td>
-                        <a href="{{route('admin.user.show', ['id'=> $vehicle->user->id])}}">{{$vehicle->user->name}}</a>
+                        <a href="{{route('user.show', ['id'=> $vehicle->user->id])}}">{{$vehicle->user->name}}</a>
                     </td>
                 </tr>
             @endforeach

@@ -31,10 +31,18 @@ Route::post('login', [LoginController::class, 'login']);
 
 //user
 Route::get('/user/{id}', [UserController::class, 'show'])
+    ->middleware(['auth'])
     ->name('user.show');
 
+Route::get('/user/edit/{id}', [UserController::class, 'edit'])
+    ->middleware(['auth', 'myself'])
+    ->name('user.edit');
+
+Route::put('/user/{id}', [UserController::class, 'update'])
+    ->middleware(['auth', 'myself'])
+    ->name('user.update');
+
 Route::middleware(['adminOnly'])->prefix('admin')->group(function () {
-    //Authentication Rotes
     //Password Reset
     $this->get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
     $this->post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
@@ -43,16 +51,13 @@ Route::middleware(['adminOnly'])->prefix('admin')->group(function () {
     );
     $this->post('password/reset', [ResetPasswordController::class, 'reset']);
 
-
+    //home
     Route::get('/home', 'HomeController@admin')->name('admin.home');
+
     //user
-    Route::get('/user', [UserController::class, 'index'])
-        ->name('admin.user.index');
-    Route::get('/user/{id}', [UserController::class, 'show'])
-        ->name('admin.user.show');
-    Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
-    Route::delete('/user/{id}', [UserController::class, 'destroy'])
-        ->name('admin.user.delete');
+    Route::get('/user', [UserController::class, 'index'])->name('admin.user.index');
+
+    Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
 
     //vehicle
     Route::get('/vehicle', [VehicleController::class, 'index'])->name('admin.vehicle.index');

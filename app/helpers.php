@@ -35,3 +35,8 @@ function mask_cpf(string $str)
 {
     return mask("###.###.###-##", $str);
 }
+
+function clear_caracteres(string $str)
+{
+    return preg_replace('/[^A-Za-z0-9 ]/', '', $str);
+}
