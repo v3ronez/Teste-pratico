@@ -24,7 +24,7 @@
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-laravel navbar-static-top navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ url('/admin/home') }}">
                 {{ config('app.name','Federal ST') }} | Administrador
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

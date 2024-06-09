@@ -19,17 +19,21 @@ class VehicleRepository extends BaseRepository
     public function createVehicle($fields, $id)
     {
         $isValidPlate = $this->model->isValidaPlate($fields['plate']);
+        $isYearValid = $this->model->isYearValid($fields['year']);
         if (!$isValidPlate) {
+            return false;
+        }
+        if (!$isYearValid) {
             return false;
         }
         $fields['user_id'] = $id;
         return $this->create($fields);
     }
 
-    public function getPaginateBootstrapWithRelation()
+    public function getPaginateBootstrapWithRelation($relations)
     {
         try {
-            return $this->model->with(['user'])->paginate();
+            return $this->model->with($relations)->paginate();
         } catch (\Exception $e) {
             Log::error("Error to delete on DB", [$e->getMessage()]);
             return false;

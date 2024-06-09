@@ -26,6 +26,12 @@ class Vehicle extends Authenticatable
         return preg_match($pattern, $plate);
     }
 
+    public function isValidYear(string $year): bool
+    {
+        $pattern = '/^(19[6-9]\d|20[0-9]\d)$/';
+        return preg_match($pattern, $year);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

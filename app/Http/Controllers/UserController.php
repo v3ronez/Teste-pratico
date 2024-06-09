@@ -16,21 +16,20 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->userRepository = new UserRepository(new User());
+        $this->userRepository = new UserRepository();
         $this->userService = new UserService($this->userRepository);
     }
 
     public function index()
     {
         try {
-            $users = $this->userRepository->getPaginateBootstrap();
+            $users = $this->userService->getPaginateBootstrap();
             return response()->view('user.index', compact('users'));
         } catch (Exception $e) {
             Log::error("Exception error", [$e->getMessage()]);
             return response('unexpected error', 500);
         }
     }
-
 
     public function store(Request $request)
     {
@@ -41,10 +40,9 @@ class UserController extends Controller
                 'document' => ['required'],
                 'password' => ['required'],
             ]);
-
             $fieldsValid['password'] = bcrypt($request->password);
-            $created = $this->userRepository->create($fieldsValid);
-            if (!$created) {
+            $newUser = $this->userService->createUser($fieldsValid);
+            if (!$newUser) {
                 return redirect()->back();
             }
             return redirect('/');
@@ -58,9 +56,9 @@ class UserController extends Controller
     public function show(Request $request, $id)
     {
         try {
-            $user = $this->userRepository->withRelations($id, ['vehicles']);
+            $user = $this->userService->withRelations($id, ['vehicles']);
             if (!$user) {
-                return response('', 404);
+                return response()->redirectToRoute('admin.home');
             }
             return response()->view('user.show', compact('user'));
         } catch (Exception $e) {
@@ -71,7 +69,7 @@ class UserController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $user = $this->userRepository->findById($id);
+        $user = $this->userService->findById($id);
         if (!$user) {
             return redirect()->route('home');
         }
@@ -82,11 +80,9 @@ class UserController extends Controller
     {
         try {
             $fields = $request->only(['name', 'cpf', 'phone', 'email']);
-            $fields['cpf'] = clear_caracteres($fields['cpf']);
-
             /** @var User $user */
-            $user = $this->userRepository->updateById($id, $fields);
-            if (!$user) {
+            $userUpdated = $this->userService->updateUser($id, $fields);
+            if (!$userUpdated) {
                 return response('', 404);
             }
             return redirect()->route('user.show', ['id' => $id]);
@@ -100,7 +96,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         try {
-            $deleted = $this->userRepository->delete($id);
+            $deleted = $this->userService->delete($id);
             if (!$deleted) {
                 return response('Error to delete', 400);
             }
