@@ -69,4 +69,9 @@ class VehicleService
             'vehicle' => $vehicleUpdated
         ];
     }
+
+    public function delete($vehicleID)
+    {
+        return $this->vehicleRepository->delete($vehicleID);
+    }
 }

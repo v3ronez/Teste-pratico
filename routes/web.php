@@ -65,4 +65,5 @@ Route::middleware(['adminOnly'])->prefix('admin')->group(function () {
     Route::post('/vehicle/{user_id}', [VehicleController::class, 'store'])->name('admin.vehicle.store');
     Route::get('/vehicle/{id}', [VehicleController::class, 'edit'])->name('admin.vehicle.edit');
     Route::put('/vehicle/{id}', [VehicleController::class, 'update'])->name('admin.vehicle.update');
+    Route::delete('/vehicle/{id}', [VehicleController::class, 'destroy'])->name('admin.vehicle.destroy');
 });

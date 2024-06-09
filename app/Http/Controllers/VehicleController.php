@@ -93,9 +93,14 @@ class VehicleController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         try {
+            $deleted = $this->vehicleService->delete($id);
+            if (!$deleted) {
+                return response()->redirectToRoute('admin.home');
+            }
+            return back();
         } catch (Exception $e) {
             Log::error("Expection error", [$e->getMessage()]);
             return response()->redirectToRoute('admin.home');

@@ -101,6 +101,17 @@
                                         <li class="mb-2"><a
                                                     href="{{route('admin.vehicle.edit', ['id'=> $vehicle->id])}}">Editar</a>
                                         </li>
+                                        <li class="mb-2">
+                                            <form method="POST"
+                                                  action="{{route('admin.vehicle.destroy', ['id'=> $vehicle->id])}}">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-discovery btn-danger rounded-2 mt-3">
+                                                    Excluir
+                                                </button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </td>
