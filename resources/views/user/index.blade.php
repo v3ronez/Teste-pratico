@@ -1,7 +1,12 @@
 @extends('layouts.admin')
 @section('content')
     <div class="w-100 h-100 p-4">
-        <h1>Usuários</h1>
+        <div class="d-flex justify-content-between align-items-center p-4">
+            <h1>Usuários</h1>
+            {{--            <button class="btn btn btn-success ml-2">--}}
+            {{--                <a class="text-white" href="{{route('admin.user.create')}}">Criar novo usuário</a>--}}
+            {{--            </button>--}}
+        </div>
         <table class="table">
             <thead>
             <tr>

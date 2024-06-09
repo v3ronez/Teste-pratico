@@ -56,6 +56,8 @@ Route::middleware(['adminOnly'])->prefix('admin')->group(function () {
 
     //user
     Route::get('/user', [UserController::class, 'index'])->name('admin.user.index');
+    Route::get('/user/new', [UserController::class, 'create'])->name('admin.user.create');
+    Route::post('/user', [UserController::class, 'store'])->name('admin.user.store');
 
     Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
 
