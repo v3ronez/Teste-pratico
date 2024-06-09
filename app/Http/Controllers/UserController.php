@@ -83,9 +83,11 @@ class UserController extends Controller
         try {
             $fields = $request->only(['name', 'cpf', 'phone', 'email']);
             $fields['cpf'] = clear_caracteres($fields['cpf']);
+
+            /** @var User $user */
             $user = $this->userRepository->updateById($id, $fields);
             if (!$user) {
-                return response('Error to update user', 400);
+                return response('', 404);
             }
             return redirect()->route('user.show', ['id' => $id]);
         } catch (Exception $e) {

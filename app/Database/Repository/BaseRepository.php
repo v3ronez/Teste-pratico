@@ -57,7 +57,10 @@ class BaseRepository implements BaseRepositoryInterface
             if (!$row) {
                 return $row;
             }
-            return $row->update($newValues);
+            $row->update($newValues);
+
+            /** @var Model|null $row */
+            return $row;
         } catch (Exception $e) {
             Log::error("Error to update on DB", [$e->getMessage()]);
             return false;

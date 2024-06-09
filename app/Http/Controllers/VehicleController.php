@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Database\Repository\User\UserRepository;
 use App\Database\Repository\Vehicle\VehicleRepository;
+use App\Events\SendEmailEvent;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -105,6 +106,7 @@ class VehicleController extends Controller
             if (!$updated) {
                 return back();
             }
+            event(new SendEmailEvent($vehicle->user));
             return redirect()->route('user.show', ['id' => $vehicle->user->id]);
         } catch (Exception $e) {
             Log::error("Expection error", [$e->getMessage()]);

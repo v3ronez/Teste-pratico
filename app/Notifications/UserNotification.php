@@ -6,26 +6,18 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class CustomerNotification extends Notification
+class UserNotification extends Notification
 {
     use Queueable;
-
-    public $fromName;
-    public $fromEmail;
-    public $subject;
-    public $message;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($fromName, $fromEmail, $subject, $message)
+    public function __construct()
     {
-        $this->fromName = $fromName;
-        $this->fromEmail = $fromEmail;
-        $this->subject = $subject;
-        $this->message = $message;
+        //
     }
 
     /**
@@ -50,9 +42,10 @@ class CustomerNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->from($this->fromEmail, $this->fromName)
-            ->subject($this->subject)
-            ->line($this->message);
+            ->greeting('Olá')
+            ->line('Houve uma nova atualização ao seu veículo!')
+            ->line('Para saber mais, clique no botão abaixo')
+            ->action('Ver mais detalhes', route('user.show', ['id' => $notifiable->id]));
     }
 
     /**
