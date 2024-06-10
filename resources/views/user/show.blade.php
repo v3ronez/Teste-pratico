@@ -118,7 +118,7 @@
                         @endif
                     </tr>
                 @empty
-                    <td colspan="6">Não veículo vinculado ainda.</td>
+                    <td colspan="6">Não há veículos vinculados ainda.</td>
                 @endforelse
                 </tbody>
             </table>

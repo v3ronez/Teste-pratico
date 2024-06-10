@@ -31,7 +31,7 @@ Route::post('login', [LoginController::class, 'login']);
 
 //user
 Route::get('/user/{id}', [UserController::class, 'show'])
-    ->middleware(['auth'])
+    ->middleware(['auth', 'myself'])
     ->name('user.show');
 
 Route::get('/user/edit/{id}', [UserController::class, 'edit'])
